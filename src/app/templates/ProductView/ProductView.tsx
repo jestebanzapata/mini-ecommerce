@@ -2,6 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { ProductContainer } from './ProductView.style';
 import { toast } from "react-toastify";
+import { useSession, signIn } from "next-auth/react"
 
 interface ProductViewProps {
     name: string; 
@@ -16,7 +17,7 @@ const ProductView = ({
     name, description, price, images
 }: ProductViewProps) => {
 
-    
+    const { status } = useSession()
 
     const addProductToCart = async (data) => {
         try {
@@ -44,13 +45,18 @@ const ProductView = ({
     }
 
     const handleAddToCart = () => {
-        const cart = {
-            data: {
-                product: {name, description, price, images},
-                quantity: 1
-            }
-        };
-        addProductToCart(cart);
+        if(status === 'unauthenticated'){
+            signIn();
+        } else {
+            const cart = {
+                data: {
+                    product: {name, description, price, images},
+                    quantity: 1
+                }
+            };
+    
+            addProductToCart(cart);
+        }
     }
 
     let priceCo = new Intl.NumberFormat('es-CO', {

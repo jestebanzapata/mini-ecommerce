@@ -9,18 +9,19 @@ interface ProductDetailProps {
 
 
 const ProductDetail: NextPage<any> = ({ product }) => {
-  
-  const { name, description, price, image } = product.attributes;
-  const images = image.data.map(({attributes: {url}}) => url);
-  return (
+
+  const { name, description, price, image } =  product?.attributes || {};
+
+
+  return ( product?
     <div>
         <ProductView
           name={name} 
           description={description}
           price={price}
-          images={images}
+          images={image.data.map(({attributes: {url}}) => url)}
         />
-    </div>
+    </div>: 'Loading'
   )
 }
 
@@ -28,8 +29,8 @@ export const getStaticProps: GetStaticProps<{product: ProductDetailProps}> = asy
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
   const id = params?.id;
   const res = await fetch(`${STRAPI_URL}/products/${id}?populate=*`)
-  console.log("url unique -> ", `${STRAPI_URL}/products/${id}?populate=*`);
   const resultJson = await res.json();
+
   return { 
     props: { product: resultJson.data}, 
     // Incremental static regeneration (each 10 seconds)
@@ -39,10 +40,8 @@ export const getStaticProps: GetStaticProps<{product: ProductDetailProps}> = asy
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
-  console.log("url -> ", `${STRAPI_URL}/products`);
   const response = await fetch(`${STRAPI_URL}/products`);
   const {data} = await response.json();
-  console.log("productList ->", data);
   const paths = data.map(({ id }) => ({
     params: {
       id: `${id}`,

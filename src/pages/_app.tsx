@@ -5,6 +5,8 @@ import type { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import ErrorBoundary from '@/components/ErrorBoundary/ErrorBoundary';
+import { SessionProvider } from 'next-auth/react';
 
 export type Page<P = {}> = NextPage<P> & {
   // You can disable whichever you don't need
@@ -18,7 +20,11 @@ type Props = AppProps & {
 export default function App({ Component, pageProps }: Props) {
   const getLayout = Component.getLayout || ((page) => <MainLayout>{page}</MainLayout>)
   return getLayout(<>
-  <Component {...pageProps} />
-  <ToastContainer />
+    {/* <ErrorBoundary> */}
+      <SessionProvider > 
+        <Component {...pageProps} />
+      </SessionProvider>
+    {/* </ErrorBoundary> */}
+    <ToastContainer />
   </>);
 }

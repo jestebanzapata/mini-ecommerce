@@ -44,7 +44,6 @@ export const getServerSideProps: GetServerSideProps<any> = async () => {
   const response = await fetch(`${STRAPI_URL}/shopping-carts`)
   const result = await response.json();
 
-  console.log("getServerSideProps -> ", result.data);
   return { props: { products:  result.data} }
 }
 

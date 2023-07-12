@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form';
 
 const ContactForm = () => {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
-  const onSubmit = async (data)=> {
-    console.log("onSubmit -> ", data);    
+  const onSubmit = async (data)=> {  
 
     try {
       const response = await fetch('/api/send-email', {

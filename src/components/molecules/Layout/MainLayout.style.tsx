@@ -24,6 +24,7 @@ export const StyledMainLayout = styled.section<LayoutProp>(({reserve}) => css`
     justify-content: space-between;
     align-items: end;
     width: 100%;
+    padding-left: 10px;
 
     
     background-color: ${!reserve ? `white`: `black`};

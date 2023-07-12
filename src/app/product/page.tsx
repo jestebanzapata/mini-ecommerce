@@ -1,5 +1,10 @@
-
+'use client'
 export default function ProductPage() {
+
+  const throwError = () => {
+    throw new Error('Error test');
+  }
+
   return (
     <main>
 
@@ -13,7 +18,7 @@ export default function ProductPage() {
           producto 2
         </li>
       </ul>
-
+      <button onClick={throwError}>Launch Error</button>
     </main>
   )
 }
