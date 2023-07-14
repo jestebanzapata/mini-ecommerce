@@ -22,7 +22,7 @@ const ProductCart = ({
     <StyledProductCart>
         <div className='product'>
             <Image
-                src={`http://localhost:1337${image}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${image}`}
                 width={50}
                 height={50}
                 alt={name}

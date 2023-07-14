@@ -11,7 +11,7 @@ interface ProductViewProps {
     images: string[]
 }
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
 const ProductView = ({
     name, description, price, images
@@ -21,7 +21,7 @@ const ProductView = ({
 
     const addProductToCart = async (data) => {
         try {
-            const response = await fetch(`${STRAPI_URL}/shopping-carts`, {
+            const response = await fetch(`${STRAPI_API_URL}/shopping-carts`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const ProductView = ({
     <ProductContainer>
         <div className='infoProduct'>
             <Image
-                src={`http://localhost:1337${images[0]}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${images[0]}`}
                 width={400}
                 height={400}
                 alt={description}

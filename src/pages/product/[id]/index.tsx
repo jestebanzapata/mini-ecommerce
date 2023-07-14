@@ -25,10 +25,11 @@ const ProductDetail: NextPage<any> = ({ product }) => {
   )
 }
 
+const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+
 export const getStaticProps: GetStaticProps<{product: ProductDetailProps}> = async ({ params }) => {
-  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
   const id = params?.id;
-  const res = await fetch(`${STRAPI_URL}/products/${id}?populate=*`)
+  const res = await fetch(`${STRAPI_API_URL}/products/${id}?populate=*`)
   const resultJson = await res.json();
 
   return { 
@@ -39,8 +40,7 @@ export const getStaticProps: GetStaticProps<{product: ProductDetailProps}> = asy
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
-  const response = await fetch(`${STRAPI_URL}/products`);
+  const response = await fetch(`${STRAPI_API_URL}/products`);
   const {data} = await response.json();
   const paths = data.map(({ id }) => ({
     params: {

@@ -28,7 +28,7 @@ const Card = ({
   return (
     <StyledCard onClick={handleClick}>
       <Image
-          src={`http://localhost:1337${image}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_HOST}${image}`}
           width={250}
           height={250}
           alt={description}

@@ -2,13 +2,13 @@ import Card from '@/components/molecules/Card/Card';
 import useSWR from 'swr'
 import { StyledHome } from './Home.style';
 
-const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
+const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
 
 const fetcher = url => fetch(url).then(r => r.json())
 
 export default function HomePage() {
 
-  const { data: response, error } = useSWR(`${STRAPI_URL}/products?populate=*`, fetcher);
+  const { data: response, error } = useSWR(`${STRAPI_API_URL}/products?populate=*`, fetcher);
   
   if(error){
     <span>Error loading data</span>

@@ -40,8 +40,8 @@ Cart.getLayout = function getLayout(page) {
 }
 
 export const getServerSideProps: GetServerSideProps<any> = async () => {
-  const STRAPI_URL = process.env.NEXT_PUBLIC_STRAPI_URL;
-  const response = await fetch(`${STRAPI_URL}/shopping-carts`)
+  const STRAPI_API_URL = process.env.NEXT_PUBLIC_STRAPI_API_URL;
+  const response = await fetch(`${STRAPI_API_URL}/shopping-carts`)
   const result = await response.json();
 
   return { props: { products:  result.data} }
